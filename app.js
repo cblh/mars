@@ -11,5 +11,19 @@ app.get('/app', function (req, res) {
 });
 
 var server = app.listen(3000, function () {
-  console.log('something in');
+  console.log('linstening on port 3000');
 });
+
+
+var wechat = require('wechat');
+var config = {
+  token: 'token',
+  appid: 'appid',
+  encodingAESKey: 'encodinAESKey'
+};
+
+app.use(express.query());
+app.use('/wechat', wechat(config, function (req, res, next) {
+  // 微信输入信息都在req.weixin上
+  var message = req.weixin;
+}));
