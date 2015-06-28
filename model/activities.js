@@ -8,7 +8,7 @@ db.once('open', function (callback) {
 });
 
 var ActivityShema = Schema({
-    id: Number,
+    id: String,
     title:String,//活动标题
     desc:String,//活动描述
     createTime:{type:Date, default: Date.now},//创建时间
