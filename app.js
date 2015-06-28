@@ -48,7 +48,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 			return function (err, user) {
 				console.log('user');
 				console.log(user);
-				user.create({
+				User.create({
 					openid: user.openid,
 					headimgurl: user.headimgurl,
 					nickname: user.nickname
