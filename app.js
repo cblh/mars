@@ -72,13 +72,16 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 		{
 			title: '报名成功',
 			description: '报名成功',
-			picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-			url: 'http://nodeapi.cloudfoundry.com/'
+			picurl: activity.imgUrl,
+			url: 'http://119.29.99.36/roam/html/apply-activity.html'
 		}
 		]);
 	};
 	if (message.MsgType=='text'&& message.Content=='1') {
-		var string = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
+		var string = '1<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>/n';
+		string +='/n2<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>/n';
+		string += '/n3<a href="http://119.29.99.36/roam/html/share-page.html">detail</a>/n';
+		string += '/n4<a href="http://119.29.99.36/roam/html/rank-list.html">detail</a>/n';
 		var callback = function (res, message) {
 			return function (err, user) {
 			User.create({
