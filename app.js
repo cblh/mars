@@ -163,8 +163,8 @@ app.use('/activities/', function (req, res) {
 			        if(err){
 			          	res.send(jsonFail(1));
 			        }else{
+			        	params.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename+'.jpg';
 			        	Activity.create(params);
-			        	activity.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename+'.jpg';
 			        	activity.save(dbCallback(res));
 		        }}
 			};
