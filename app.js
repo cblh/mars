@@ -167,7 +167,7 @@ app.use('/activities/', function (req, res) {
 			        	Activity.create(params);
 		        }}
 			};
-			var content = '<a href="http://119.29.99.36/roam/html/apply-activity.html"></a>'
+			var content = '<a href="http://119.29.99.36/roam/html/apply-activity.html">activity</a>'
 
 			User.find({},'openId',function (err, data) {
 				receivers=data;
