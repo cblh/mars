@@ -49,16 +49,16 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 				console.log('user');
 				console.log(user);
 				User.create({
-					openid: user.openid,
-					headimgurl: user.headimgurl,
-					nickname: user.nickname
+					openId: user.openid,
+					headimgUrl: user.headimgurl,
+					nickName: user.nickname
 				},dbCallback(res()));
 				// openid:
 				// headimgurl:
 				// nickname:
 			}
 		};
-		api.getUser(message.FromUserName, callback);
+		api.getUser(message.FromUserName, callback(res));
 		res.reply([
 		{
 			title: '报名成功',

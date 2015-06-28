@@ -10,8 +10,10 @@ db.once('open', function (callback) {
 var User = mongoose.model('User', Schema({
     type: Number,//0,100，administrator
     wechatName: String,
-    unionId: Number,//绑定微信账号
+    openId: Number,//绑定微信账号
     nationId: Number,//身份证，默认null
+    headimgUrl: String,
+    nickName: String,
     // records: Array//_recordId:Schema.Types.ObjectId,
     records: [{
         type: mongoose.Schema.Types.ObjectId,
