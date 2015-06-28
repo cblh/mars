@@ -187,7 +187,7 @@ app.use('/activities/', function (req, res) {
 			        	params.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename+'.jpg';
 			        	var activity = Activity.create(params);
 
-						var content = activity.title+'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
+						var content = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
 
 						User.find({},'openId',function (err, data) {
 							receivers=data;
