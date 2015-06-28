@@ -166,10 +166,9 @@ app.use('/activities/', function (req, res) {
 			        	activity.save();
 			        	activity.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename;
 			        	activity.save(dbCallback(res));
-		        }
+		        }}
 			};
-		    fs.writeFile('/bowen/aifen/img'+options.filename+'.jpg', imageDataBuffer, callback(activity))
-		    });
+		    fs.writeFile('/bowen/aifen/img'+options.filename+'.jpg', imageDataBuffer, callback(activity));
 		}else {
 			Activity.create(req.params, dbCallback(res))
 		}
