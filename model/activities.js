@@ -20,8 +20,8 @@ var ActivityShema = Schema({
     img:String,//
     imgUrl:String,//
     signPosition: { //开始位置
-        lat:Number,
-        lon:Number
+        lat:String,
+        lon:String
     },
     // records: Array//_recordId:Schema.Types.ObjectId,
     records: [{

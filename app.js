@@ -164,7 +164,7 @@ app.use('/activities/', function (req, res) {
 			          	res.send(jsonFail(1));
 			        }else{
 			        	activity.save();
-			        	activity.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename;
+			        	activity.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename+'.jpg';
 			        	activity.save(dbCallback(res));
 		        }}
 			};
