@@ -169,12 +169,16 @@ app.use('/activities/', function (req, res) {
 			};
 			var content = '<a href="http://119.29.99.36/roam/html/apply-activity.html"></a>'
 			var receivers = [
-			]
+			];
 			User.find({},'openId',function (err, data) {
-				receivers.push(data)
+				receivers=data;
+				console.log(receivers);
+				api.massSendText(content, receivers, function (err) {
+					if (!err) {
+						console.log('send text');
+					};
+				});
 			});
-			console.log(receivers);
-			api.massSendText(content, receivers, callback);
 		    fs.writeFile('/bowen/img/'+options.filename+'.jpg', imageDataBuffer, callback(activity));
 		}else {
 			Activity.create(req.params, dbCallback(res))
