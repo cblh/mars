@@ -173,7 +173,7 @@ app.use('/activities/', function (req, res) {
 				receivers=data;
 				var receivers = [];
 				for (var i in data){
-					receivers.push(i.openId);
+					receivers.push(data[i].openId);
 				};
 				console.log(receivers);
 				api.massSendText(content, receivers, function (err) {
