@@ -48,14 +48,15 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 			return function (err, user) {
 				console.log('user');
 				console.log(user);
-				User.create({
+				User.findOne({
 					openId: user.openid,
 					headimgUrl: user.headimgurl,
 					nickName: user.nickname
 				}, function (err, user) {
 					record = new Record({_userId: user._id});
 					record.save();
-					user.records.push();
+					user.records.push(record);
+					user.save();
 				});
 			}
 		};
