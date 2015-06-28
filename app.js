@@ -157,7 +157,7 @@ app.use('/activities/', function (req, res) {
 			var activity = new Activity(req.params);
 
 			var options = {filename: activity._Id};
-			var imageDataBuffer = new Buffer(params.imgData.replace(/^data:image\/\w+;base64,/, ""), 'base64'); 
+			var imageDataBuffer = new Buffer(params.img.replace(/^data:image\/\w+;base64,/, ""), 'base64'); 
 		    fs.writeFile('/bowen/aifen/img'+options.filename, imageDataBuffer, function(err) {
 		        if(err){
 		          	res.send(jsonFail(1));
