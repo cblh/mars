@@ -53,7 +53,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 					headimgUrl: user.headimgurl,
 					nickName: user.nickname
 				}, function (err, user) {
-					record = new Record(_userId: user._id);
+					record = new Record({_userId: user._id});
 					record.save();
 					user.records.push();
 				});
