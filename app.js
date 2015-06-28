@@ -52,10 +52,11 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 					openId: user.openid,
 					headimgUrl: user.headimgurl,
 					nickName: user.nickname
-				},dbCallback(res));
-				// openid:
-				// headimgurl:
-				// nickname:
+				}, function (err, user) {
+					record = new Record(_userId: user._id);
+					record.save();
+					user.records.push();
+				});
 			}
 		};
 		api.getUser(message.FromUserName, callback(res));
