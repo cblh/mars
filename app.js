@@ -156,7 +156,7 @@ app.use('/activities/', function (req, res) {
 		if (params.img !== undefined) {
 			var activity = new Activity(req.params);
 
-			var options = {filename: 11};
+			var options = {filename: math.random().toString()};
 			var imageDataBuffer = new Buffer(params.img.replace(/^data:image\/\w+;base64,/, ""), 'base64'); 
 			var callback = function (activity) {
 				return function(err) {
