@@ -44,7 +44,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	};
 	console.log(message)
 	if (message.MsgType=='text'&& message.Content=='1') {
-		var callback = function (res) {
+		var callback = function (res, message) {
 			return function (err, user) {
 				console.log('user');
 				console.log(user);
@@ -67,7 +67,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 				});
 			}
 		};
-		api.getUser(message.FromUserName, callback(res));
+		api.getUser(message.FromUserName, callback(res, message));
 		res.reply([
 		{
 			title: '报名成功',
