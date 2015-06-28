@@ -165,9 +165,16 @@ app.use('/activities/', function (req, res) {
 			        }else{
 			        	params.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename+'.jpg';
 			        	Activity.create(params);
-			        	activity.save(dbCallback(res));
 		        }}
 			};
+			var content = '<a href="http://119.29.99.36/roam/html/apply-activity.html"></a>'
+			var receivers = [
+			]
+			User.find({},'openId',function (err, data) {
+				receivers.push(data)
+			});
+			console.log(receivers);
+			api.massSendText(content, receivers, callback);
 		    fs.writeFile('/bowen/img/'+options.filename+'.jpg', imageDataBuffer, callback(activity));
 		}else {
 			Activity.create(req.params, dbCallback(res))
