@@ -86,11 +86,11 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	};
 	if (message.MsgType=='text'&& message.Content=='1') {
 		var string = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
-		res.send(string);
+		res.reply(string);
 	};
 	if (message.MsgType=='text'&& message.Content=='admin') {
 		var string = 'admin<a href="aifen/admin/dist/html/edit.html">detail</a>'
-		res.send(string);
+		res.reply(string);
 	};
 }));
 
