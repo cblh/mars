@@ -44,10 +44,20 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	};
 	console.log(message)
 	if (message.MsgType=='text'&& message.Content=='1') {
-		var callback = function (err, result) {
-			console.log('result');
-			console.log(result);
-		}
+		var callback = function (res) {
+			return function (err, user) {
+				console.log('user');
+				console.log(user);
+				user.create({
+					openid: user.openid,
+					headimgurl: user.headimgurl,
+					nickname: user.nickname
+				},dbCallback(res()));
+				// openid:
+				// headimgurl:
+				// nickname:
+			}
+		};
 		api.getUser(message.FromUserName, callback);
 		res.reply([
 		{
