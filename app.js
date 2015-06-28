@@ -41,10 +41,14 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	};
 	console.log(message)
 	if (message.MsgType=='text'&& message.Content=='1') {
-		res.reply({
-	    	content: 'text object',
-	      	type: 'text'
-	    });
+		res.reply([
+		{
+			title: '报名成功',
+			description: '报名成功',
+			picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+			url: 'http://nodeapi.cloudfoundry.com/'
+		}
+		]);
 	};
 }));
 
