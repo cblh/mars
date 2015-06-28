@@ -154,11 +154,11 @@ app.use('/activities/', function (req, res) {
 	} else if(req.method == 'POST'){
 		var params = req.body;
 		if (params.img !== undefined) {
-			var activity = new Activity(req.params);
+			var activity = Activity.create(req.params);
 
 			var options = {filename: activity._Id};
 			var imageDataBuffer = new Buffer(params.img.replace(/^data:image\/\w+;base64,/, ""), 'base64'); 
-		    fs.writeFile('/bowen/aifen/img'+options.filename, imageDataBuffer, function(err) {
+		    fs.writeFile('/bowen/aifen/img'+options.filename+'.jpg', imageDataBuffer, function(err) {
 		        if(err){
 		          	res.send(jsonFail(1));
 		        }else{
