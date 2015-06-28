@@ -168,10 +168,13 @@ app.use('/activities/', function (req, res) {
 		        }}
 			};
 			var content = '<a href="http://119.29.99.36/roam/html/apply-activity.html"></a>'
-			var receivers = [
-			];
+
 			User.find({},'openId',function (err, data) {
 				receivers=data;
+				var receivers = [];
+				for (var i in data){
+					receivers.push(i.openId);
+				};
 				console.log(receivers);
 				api.massSendText(content, receivers, function (err) {
 					if (!err) {
