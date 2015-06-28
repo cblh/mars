@@ -63,7 +63,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 							activity.save();
 						}
 					}
-					Activity.create({id:message.Content}, callback(record))
+					Activity.findOne({id:message.Content}, callback(record))
 				});
 			}
 		};
