@@ -12,16 +12,14 @@ var ActivityShema = Schema({
     title:String,//活动标题
     desc:String,//活动描述
     createTime:{type:Date, default: Date.now},//创建时间
-    actTime:Date,//活动时间
-    signTime:Date,//报名截止时间
-    positionDesc: String,//活动地点
-    imgData:String,//
+    actTime:String,//活动时间
+    signTime:String,//报名截止时间
+    startTime:String,
+    endTime:String,
+    position: String,//活动地点
+    img:String,//
     imgUrl:String,//
-    startPosition: { //开始位置
-        lat:Number,
-        lon:Number
-    },
-    endPosition: { //结束位置
+    signPosition: { //开始位置
         lat:Number,
         lon:Number
     },
