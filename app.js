@@ -168,7 +168,7 @@ app.use('/activities/', function (req, res) {
 			        	activity.save(dbCallback(res));
 		        }}
 			};
-		    fs.writeFile('/bowen/aifen/img'+options.filename+'.jpg', imageDataBuffer, callback(activity));
+		    fs.writeFile('/bowen/img/'+options.filename+'.jpg', imageDataBuffer, callback(activity));
 		}else {
 			Activity.create(req.params, dbCallback(res))
 		}
