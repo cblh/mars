@@ -40,7 +40,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	res.send(message.echostr);
 	};
 	console.log(message)
-	if (message.MsgType='text'&& message.Content='1') {
+	if (message.MsgType=='text'&& message.Content=='1') {
 		res.reply({
 	    	content: 'text object',
 	      	type: 'text'
