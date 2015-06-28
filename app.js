@@ -9,7 +9,8 @@ var express = require('express'),
 	Record = require('./model/records'),
 	bodyParser = require('body-parser'),
     multer = require('multer'),
-    fs = require('fs');
+    fs = require('fs')，
+    API = require('wechat-api');
 
 var app = express();
 
@@ -27,8 +28,10 @@ var wechat = require('wechat');
 var config = {
   token: 'mars',
   appid: 'wx9fb1b4868ad65f02',
-  encodingAESKey: '49d925d6b41a6fefc32545325d4d98ee5d4d98ee8ee'
+  encodingAESKey: '49d925d6b41a6fefc32545325d4d98ee5d4d98ee8ee',
+  appsecret:'49d925d6b41a6fefc32545325d4d98ee'
 };
+var api = new API(config.appid, config.appsecret);
 
 app.use(express.query());
 app.use('/wechat', wechat(config, function (req, res, next) {
@@ -41,6 +44,11 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	};
 	console.log(message)
 	if (message.MsgType=='text'&& message.Content=='1') {
+		var callback = function (err, result) {
+			console.log('result');
+			console.log(result);
+		}
+		api.getUser(message.FromUserName, callback);
 		res.reply([
 		{
 			title: '报名成功',
