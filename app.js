@@ -9,7 +9,7 @@ var express = require('express'),
 	Record = require('./model/records'),
 	bodyParser = require('body-parser'),
     multer = require('multer'),
-    fs = require('fs')，
+    fs = require('fs'),
     API = require('wechat-api');
 
 var app = express();
