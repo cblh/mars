@@ -43,7 +43,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 	res.send(message.echostr);
 	};
 	console.log(message)
-	if (message.MsgType=='text'&& message.Content=='1') {
+	if (message.MsgType=='text'&& message.Content=='apply') {
 		var callback = function (res, message) {
 			return function (err, user) {
 				console.log('user');
@@ -53,6 +53,13 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 					headimgUrl: user.headimgurl,
 					nickName: user.nickname
 				}, function (err, user) {
+					if (user!==undefined) {
+						var user = User.create({
+							openId: user.openid,
+							headimgUrl: user.headimgurl,
+							nickName: user.nickname
+						});
+					};
 					record = new Record({_userId: user._id});
 					record.save();
 					user.records.push(record);
@@ -76,6 +83,14 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 			url: 'http://nodeapi.cloudfoundry.com/'
 		}
 		]);
+	};
+	if (message.MsgType=='text'&& message.Content=='1') {
+		var string = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
+		res.send(string);
+	};
+	if (message.MsgType=='text'&& message.Content=='admin') {
+		var string = 'admin<a href="aifen/admin/dist/html/edit.html">detail</a>'
+		res.send(string);
 	};
 }));
 
@@ -164,24 +179,26 @@ app.use('/activities/', function (req, res) {
 			          	res.send(jsonFail(1));
 			        }else{
 			        	params.imgUrl = 'http://119.29.99.36'+'/img/'+options.filename+'.jpg';
-			        	Activity.create(params);
+			        	var activity = Activity.create(params);
+
+						var content = activity.title+'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
+
+						User.find({},'openId',function (err, data) {
+							receivers=data;
+							var receivers = [];
+							for (var i in data){
+								receivers.push(data[i].openId);
+							};
+							console.log(receivers);
+							api.massSendText(content, receivers, function (err) {
+								if (!err) {
+									console.log('send text');
+								};
+							});
+						});
 		        }}
 			};
-			var content = '<a href="http://119.29.99.36/roam/html/apply-activity.html">activity</a>'
 
-			User.find({},'openId',function (err, data) {
-				receivers=data;
-				var receivers = [];
-				for (var i in data){
-					receivers.push(data[i].openId);
-				};
-				console.log(receivers);
-				api.massSendText(content, receivers, function (err) {
-					if (!err) {
-						console.log('send text');
-					};
-				});
-			});
 		    fs.writeFile('/bowen/img/'+options.filename+'.jpg', imageDataBuffer, callback(activity));
 		}else {
 			Activity.create(req.params, dbCallback(res))
