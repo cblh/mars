@@ -52,7 +52,7 @@ app.use('/wechat', wechat(config, function (req, res, next) {
 					openId: user.openid,
 					headimgUrl: user.headimgurl,
 					nickName: user.nickname
-				},dbCallback(res()));
+				},dbCallback(res));
 				// openid:
 				// headimgurl:
 				// nickname:
