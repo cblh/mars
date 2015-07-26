@@ -60,6 +60,7 @@ events.add('subscribe', function (message, req, res, next) {
         }
         };
     api.getUser(message.FromUserName, callback(res, message));
+    res.reply('');
 });
 var handleEvent = Event.dispatch(events);
 
