@@ -46,10 +46,18 @@ var config = {
 var api = new API(config.appid, config.appsecret);
 
 app.use(express.query());
+app.use(function(req, res, next) {
+    console.log('req.params')
+    delete req.body._id;
+    console.log(req.headers['content-type'])
+    console.log(req.method)
+    next();
+});
 
 var events = new Event();
 events.add('subscribe', function (message, req, res, next) {
     // 订阅事件
+    console.log(message)
     var callback = function(res, message) {
         return function(err, user) {
             User.create({
@@ -68,6 +76,7 @@ app.use('/wechat', wechat(config).text(handleText).event(handleEvent).middlewari
 
 var handleText = function(message, req, res, next) {
     // 验证签名，由于测试号有缺陷，先这样
+    var message = req.weixin;
     if (message.signature) {
         console.log('signature' + query.signature);
         res.send(message.echostr);
@@ -161,16 +170,7 @@ var jsonFail = function(retCode) {
     };
 };
 
-app.use(function(req, res, next) {
-    console.log('req.params')
-    delete req.body._id;
-    console.log(req.params)
-    console.log(req.body)
-    console.log(req.query)
-    console.log(req.headers['content-type'])
-    console.log(req.method)
-    next();
-});
+
 app.use('/activities/:_id', function(req, res) {
     // get, findOne
     if (req.method == 'GET') {
