@@ -216,13 +216,16 @@ app.use('/activities/', function(req, res) {
                         delete params.img;
                         var activity = Activity.create(params);
 
-                        var content = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>'
+                        var content = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html?id='+activity._id.toString()+'">detail</a>'
 
                         User.find({}, 'openId', function(err, data) {
                             receivers = data;
                             var receivers = [];
                             for (var i in data) {
                                 receivers.push(data[i].openId);
+                            };
+                            if (debug) {
+                                receivers = ['o21_5t6ZNO7xXKzikY4GGfLhdyFk'];
                             };
                             console.log(receivers);
                             api.massSendText(content, receivers, function(err) {
