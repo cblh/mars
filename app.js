@@ -74,7 +74,7 @@ var handleEvent = Event.dispatch(events);
 
 app.use('/wechat', wechat(config).text(handleText).event(handleEvent).middlewarify());
 
-var handleText = function(message, req, res, next) {
+function handleText (message, req, res, next) {
     // 验证签名，由于测试号有缺陷，先这样
     var message = req.weixin;
     if (message.signature) {
