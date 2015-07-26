@@ -224,7 +224,7 @@ app.use('/activities/', function(req, res) {
                                     receivers.push(data[i].openId);
                                 };
                                 if (debug) {
-                                    receivers = ['o21_5t6ZNO7xXKzikY4GGfLhdyFk'];
+                                    receivers = ['o21_5t6ZNO7xXKzikY4GGfLhdyFk','o21_5t6ZNO7xXKzikY4GGfLhdyFk'];
                                 };
                                 console.log(receivers);
                                 api.massSendText(content, receivers, function(err) {
