@@ -214,27 +214,29 @@ app.use('/activities/', function(req, res) {
                     } else {
                         params.imgUrl = 'http://119.29.99.36' + '/img/' + options.filename + '.jpg';
                         delete params.img;
-                        var activity = Activity.create(params);
+                        var activity = Activity.create(params, function(err, doc){
+                            var content = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html?id='+doc._doc._id.toString()+'">detail</a>'
 
-                        var content = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html?id='+activity._id.toString()+'">detail</a>'
-
-                        User.find({}, 'openId', function(err, data) {
-                            receivers = data;
-                            var receivers = [];
-                            for (var i in data) {
-                                receivers.push(data[i].openId);
-                            };
-                            if (debug) {
-                                receivers = ['o21_5t6ZNO7xXKzikY4GGfLhdyFk'];
-                            };
-                            console.log(receivers);
-                            api.massSendText(content, receivers, function(err) {
-                                if (!err) {
-                                    console.log('send text');
+                            User.find({}, 'openId', function(err, data) {
+                                receivers = data;
+                                var receivers = [];
+                                for (var i in data) {
+                                    receivers.push(data[i].openId);
                                 };
+                                if (debug) {
+                                    receivers = ['o21_5t6ZNO7xXKzikY4GGfLhdyFk'];
+                                };
+                                console.log(receivers);
+                                api.massSendText(content, receivers, function(err) {
+                                    if (!err) {
+                                        console.log('send text');
+                                    };
+                                });
                             });
+                            res.send(jsonSuccess());
                         });
-                        res.send(jsonSuccess());
+
+
                     }
                 }
             };
