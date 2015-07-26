@@ -12,6 +12,8 @@ var express = require('express'),
     fs = require('fs'),
     os = require('os'),
     API = require('wechat-api');
+var wechat = require('wechat');
+var Event = require('wechat').Event;
 
 var debug = true;
 var CONFIG = {
@@ -35,7 +37,6 @@ var server = app.listen(3000, function() {
 });
 
 
-var wechat = require('wechat');
 var config = {
     token: 'mars',
     appid: 'wx9fb1b4868ad65f02',
@@ -45,6 +46,26 @@ var config = {
 var api = new API(config.appid, config.appsecret);
 
 app.use(express.query());
+
+var events = new Event();
+events.add('subscribe', function (message, req, res, next) {
+    // 订阅事件
+    var callback = function(res, message) {
+        return function(err, user) {
+            User.create({
+                openId: user.openid,
+                headimgUrl: user.headimgurl,
+                nickName: user.nickname
+            });
+        }
+        };
+    api.getUser(message.FromUserName, callback(res, message));
+});
+var handleEvent = Event.dispatch(events);
+
+app.use('/wechat', wechat(config).event(handleEvent).middlewarify());
+
+
 app.use('/wechat', wechat(config, function(req, res, next) {
     // 微信输入信息都在req.weixin上
     var message = req.weixin;
@@ -95,16 +116,6 @@ app.use('/wechat', wechat(config, function(req, res, next) {
         string += '/n2<a href="http://119.29.99.36/roam/html/check-activity.html">detail</a>/n';
         string += '/n3<a href="http://119.29.99.36/roam/html/share-page.html">detail</a>/n';
         string += '/n4<a href="http://119.29.99.36/roam/html/rank-list.html">detail</a>/n';
-        var callback = function(res, message) {
-            return function(err, user) {
-                User.create({
-                    openId: user.openid,
-                    headimgUrl: user.headimgurl,
-                    nickName: user.nickname
-                });
-            }
-        };
-        api.getUser(message.FromUserName, callback(res, message));
         res.reply(string);
     };
     if (message.MsgType == 'text' && message.Content == 'admin') {
@@ -296,4 +307,13 @@ app.use('/users/', function(req, res) {
     } else if (req.method == 'POST') {
         User.create(req.params, dbCallback(res));
     }
+})
+
+app.use('/rank/', function(req, res) {
+    if (req.method !== 'GET') {
+        req.setHead(404);
+        return;
+    };
+    User.find()
+        .record
 })
