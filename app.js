@@ -60,7 +60,7 @@ events.add('subscribe', function (message, req, res, next) {
         }
         };
     api.getUser(message.FromUserName, callback(res, message));
-    res.reply('');
+    res.reply('谢谢关注');
 });
 var handleEvent = Event.dispatch(events);
 
