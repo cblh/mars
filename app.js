@@ -215,7 +215,7 @@ app.use('/activities/', function(req, res) {
                         params.imgUrl = 'http://119.29.99.36' + '/img/' + options.filename + '.jpg';
                         delete params.img;
                         var activity = Activity.create(params, function(err, doc){
-                            var content = 'activity<a href="http://119.29.99.36/roam/html/apply-activity.html?id='+doc._doc._id.toString()+'">detail</a>'
+                            var content = '活动报名<a href="http://119.29.99.36/roam/html/apply-activity.html?id='+doc._doc._id.toString()+'"></a>/n活动签到<a href="http://119.29.99.36/roam/html/check-activity.html?id='+doc._doc._id.toString()+'"></a>'
 
                             User.find({}, 'openId', function(err, data) {
                                 receivers = data;
@@ -224,6 +224,7 @@ app.use('/activities/', function(req, res) {
                                     receivers.push(data[i].openId);
                                 };
                                 if (debug) {
+                                    // 至少两个openid
                                     receivers = ['o21_5t6ZNO7xXKzikY4GGfLhdyFk','o21_5t6ZNO7xXKzikY4GGfLhdyFk'];
                                 };
                                 console.log(receivers);
