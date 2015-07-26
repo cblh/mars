@@ -64,12 +64,9 @@ events.add('subscribe', function (message, req, res, next) {
 });
 var handleEvent = Event.dispatch(events);
 
-app.use('/wechat', wechat(config).event(handleEvent).middlewarify());
+app.use('/wechat', wechat(config).text(handleText).event(handleEvent).middlewarify());
 
-
-app.use('/wechat', wechat(config, function(req, res, next) {
-    // 微信输入信息都在req.weixin上
-    var message = req.weixin;
+var handleText = function(message, req, res, next) {
     // 验证签名，由于测试号有缺陷，先这样
     if (message.signature) {
         console.log('signature' + query.signature);
@@ -111,6 +108,7 @@ app.use('/wechat', wechat(config, function(req, res, next) {
             picurl: activity.imgUrl,
             url: 'http://119.29.99.36/roam/html/apply-activity.html'
         }]);
+        return;
     };
     if (message.MsgType == 'text' && message.Content == '1') {
         var string = '1<a href="http://119.29.99.36/roam/html/apply-activity.html">detail</a>/n';
@@ -118,12 +116,15 @@ app.use('/wechat', wechat(config, function(req, res, next) {
         string += '/n3<a href="http://119.29.99.36/roam/html/share-page.html">detail</a>/n';
         string += '/n4<a href="http://119.29.99.36/roam/html/rank-list.html">detail</a>/n';
         res.reply(string);
+        return;
     };
     if (message.MsgType == 'text' && message.Content == 'admin') {
         var string = 'admin<a href="http://119.29.99.36/aifen/admin/dist/html/edit.html">detail</a>'
         res.reply(string);
+        return;
     };
-}));
+    res.reply('等待客服回复');
+};
 
 
 var dbCallback = function(res, callback) {
